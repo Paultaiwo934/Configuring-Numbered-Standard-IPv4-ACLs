@@ -17,26 +17,25 @@ This project focuses on defining filtering criteria, configuring standard access
 
 - <b>Topology: <b/> 
 <br/>
-<img src="https://imgur.com/2eVn2GF.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://imgur.com/UlQrXaj.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br/>
-
-- <b>Enabled port security on F0/1 and F0/2 on the switch and set the maximum devices that can access the ports to one so only PC 1 and PC 2 in our topology can access these ports.
-- Secured the ports so that the MAC address of a device is dynamically learned and added to the running configuration.
-- Set the violation mode so that the F0/1 and F0/2 are not disabled when a violation occurs, but a notification of the security violation is generated, and packets from the unknown source are dropped.
-- Disabled all the remaining unused ports:
+Step 1: Tested network connectivity by pinging other devices on the network. Ping was suscessful:
 <br/>
-<img src="https://imgur.com/9k1HCTt.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://imgur.com/UY0TnUa.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />Step 2: Created an ACL using the number 1 on R2 with a statement that denies access to the 192.168.20.0/24 network from the 192.168.11.0/24 network, then applied the ACL by placing it for outbound traffic on the GigabitEthernet 0/0 interface: <br/>
+<img src="https://imgur.com/dxgzvpv.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br />
+<br />Step 3: Created an ACL using the number 1 on R3 with a statement that denies access to the 192.168.30.0/24 network from the PC1 (192.168.10.0/24) network, then applied the ACL by placing it for outbound traffic on the GigabitEthernet 0/0 interface:  <br/>
+<img src="https://imgur.com/xs2guQK.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-Verify port security is enabled and the MAC addresses of PC1 and PC2 were added to the running configuration: <br/>
-<img src="https://imgur.com/RREJ8BA.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-A Rogue laptop was connected to port F0/2, this was flagged as a violation as only PC2 is allowed to connect to F0/2. Therefore, the rogue laptop could not ping PC1:  <br/>
-<img src="https://imgur.com/t8yKBMS.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+Step 3: Verified ACL configuration and functionality
+  <br/>
+<img src="https://imgur.com/iAiSjyY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br/>
-<img src="https://imgur.com/qX1P3SC.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="https://imgur.com/yVuwKaq.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 </p>
 
 <!--
