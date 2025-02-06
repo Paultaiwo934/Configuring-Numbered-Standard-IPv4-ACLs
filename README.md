@@ -19,6 +19,8 @@ This project focuses on defining filtering criteria, configuring standard access
 <br/>
 <img src="https://imgur.com/UlQrXaj.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br/>
+
+<br/>
 Step 1: Tested network connectivity by pinging other devices on the network. Ping was suscessful:
 <br/>
 <img src="https://imgur.com/UY0TnUa.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
@@ -30,7 +32,7 @@ Step 1: Tested network connectivity by pinging other devices on the network. Pin
 <img src="https://imgur.com/xs2guQK.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-Step 3: Verified ACL configuration and functionality
+Step 4: Verified ACL configuration and functionality
   <br/>
 <img src="https://imgur.com/iAiSjyY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
