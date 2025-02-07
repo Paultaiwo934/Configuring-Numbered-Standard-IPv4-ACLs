@@ -1,4 +1,4 @@
-<h1>Configuring Numbered Standard IPv4 ACLs</h1>
+<h1>Configured Numbered Standard IPv4 ACLs</h1>
 
 <h2>Description</h2>
 This project focuses on defining filtering criteria, configuring standard access control lists (ACLs), applying ACLs to router interfaces, and verifying and testing the ACL implementation. ACLs are router configuration scripts that control whether a router permits or denies packets based on the source address.<br />
