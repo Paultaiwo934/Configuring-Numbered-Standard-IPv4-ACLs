@@ -1,0 +1,351 @@
+
+Cisco Packet Tracer PC Command Line 1.0
+C:\>ping 192.168.11.10
+
+Pinging 192.168.11.10 with 32 bytes of data:
+
+Request timed out.
+Reply from 192.168.11.10: bytes=32 time=9ms TTL=127
+Reply from 192.168.11.10: bytes=32 time<1ms TTL=127
+Reply from 192.168.11.10: bytes=32 time<1ms TTL=127
+
+Ping statistics for 192.168.11.10:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 9ms, Average = 3ms
+
+C:\>ping 192.168.30.10
+
+Pinging 192.168.30.10 with 32 bytes of data:
+
+Request timed out.
+Reply from 192.168.30.10: bytes=32 time=1ms TTL=126
+Reply from 192.168.30.10: bytes=32 time=14ms TTL=126
+Reply from 192.168.30.10: bytes=32 time=1ms TTL=126
+
+Ping statistics for 192.168.30.10:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 1ms, Maximum = 14ms, Average = 5ms
+
+C:\>
+C:\>ping 192.168.20.254
+
+Pinging 192.168.20.254 with 32 bytes of data:
+
+Request timed out.
+Reply from 192.168.20.254: bytes=32 time=2ms TTL=126
+Reply from 192.168.20.254: bytes=32 time=1ms TTL=126
+Reply from 192.168.20.254: bytes=32 time=2ms TTL=126
+
+Ping statistics for 192.168.20.254:
+    Packets: Sent = 4, Received = 3, Lost = 1 (25% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 1ms, Maximum = 2ms, Average = 1ms
+
+C:\>
+
+
+
+
+
+
+R2>enable
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#access-list ?
+  <1-99>     IP standard access list
+  <100-199>  IP extended access list
+R2(config)#access-list ?
+  <1-99>     IP standard access list
+  <100-199>  IP extended access list
+R2(config)#access-list 1 ?
+  deny    Specify packets to reject
+  permit  Specify packets to forward
+  remark  Access list entry comment
+R2(config)#access-list 1 deny 192.168.11.0 0.0.0.255
+R2(config)#access-list 1 permit any
+R2(config)#exit
+R2#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R2#show access-lists
+Standard IP access list 1
+    10 deny 192.168.11.0 0.0.0.255
+    20 permit any
+
+R2#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R2(config)#int g0/0
+R2(config-if)#ip access-group 1 out
+R2(config-if)#
+
+
+
+
+
+R3>enable
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#access-list 1 deny 192.168.10.0 0.0.0.255
+R3(config)#access-list 1 permit any
+R3(config)#exit
+R3#
+%SYS-5-CONFIG_I: Configured from console by console
+
+R3#show access-lists
+Standard IP access list 1
+    10 deny 192.168.11.0 0.0.0.255
+    20 permit any
+    30 permit 192.168.11.0 0.0.0.255
+    40 deny 192.168.10.0 0.0.0.255
+	
+R3#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+R3(config)#int g0/0
+R3(config-if)#ip access-group 1 out
+R3(config-if)#
+
+R2>enable
+R2#show run
+Building configuration...
+
+Current configuration : 1001 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R2
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524UE18
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ ip address 192.168.20.1 255.255.255.0
+ ip access-group 1 out
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ description Link to R1
+ ip address 10.1.1.2 255.255.255.252
+!
+interface Serial0/0/1
+ description Link to R3
+ ip address 10.2.2.1 255.255.255.252
+ clock rate 4000000
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router eigrp 100
+ passive-interface GigabitEthernet0/0
+ network 192.168.20.0
+ network 10.0.0.0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 1 deny 192.168.11.0 0.0.0.255
+access-list 1 permit any
+!
+!
+!
+!
+!
+line con 0
+ login
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
+
+R2#show access-lists
+Standard IP access list 1
+    10 deny 192.168.11.0 0.0.0.255 (4 match(es))
+    20 permit any (4 match(es))
+    
+    
+    
+    R3#show run
+Building configuration...
+
+Current configuration : 1056 bytes
+!
+version 15.1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname R3
+!
+!
+!
+!
+!
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+!
+!
+license udi pid CISCO1941/K9 sn FTX1524PEUL
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description R3 LAN
+ ip address 192.168.30.1 255.255.255.0
+ ip access-group 1 out
+ duplex auto
+ speed auto
+!
+interface GigabitEthernet0/1
+ no ip address
+ duplex auto
+ speed auto
+ shutdown
+!
+interface Serial0/0/0
+ ip address 10.3.3.2 255.255.255.252
+!
+interface Serial0/0/1
+ description Link to R2
+ ip address 10.2.2.2 255.255.255.252
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+router eigrp 100
+ passive-interface GigabitEthernet0/0
+ network 192.168.30.0
+ network 10.0.0.0
+!
+ip classless
+!
+ip flow-export version 9
+!
+!
+access-list 1 deny 192.168.11.0 0.0.0.255
+access-list 1 permit any
+access-list 1 permit 192.168.11.0 0.0.0.255
+access-list 1 deny 192.168.10.0 0.0.0.255
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+end
+
+
+R3#show ip int g0/0
+GigabitEthernet0/0 is up, line protocol is up (connected)
+  Internet address is 192.168.30.1/24
+  Broadcast address is 255.255.255.255
+  Address determined by setup command
+  MTU is 1500 bytes
+  Helper address is not set
+  Directed broadcast forwarding is disabled
+  Outgoing access list is 1
+  Inbound  access list is not set
+  Proxy ARP is enabled
+  Security level is default
+  Split horizon is enabled
+  ICMP redirects are always sent
+  ICMP unreachables are always sent
+  ICMP mask replies are never sent
+  IP fast switching is disabled
+  IP fast switching on the same interface is disabled
+  IP Flow switching is disabled
+  IP Fast switching turbo vector
+  IP multicast fast switching is disabled
+  IP multicast distributed fast switching is disabled
+  Router Discovery is disabled
+  IP output packet accounting is disabled
+  IP access violation accounting is disabled
+  TCP/IP header compression is disabled
+  RTP/IP header compression is disabled
+  Probe proxy name replies are disabled
+  Policy routing is disabled
+  Network address translation is disabled
+  BGP Policy Mapping is disabled
+  Input features: MCI Check
+  WCCP Redirect outbound is disabled
+  WCCP Redirect inbound is disabled
+  WCCP Redirect exclude is disabled
+  
+  
