@@ -32,12 +32,16 @@ Step 1: Tested network connectivity by pinging other devices on the network. Pin
 <img src="https://imgur.com/xs2guQK.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br />
-Step 4: Verified ACL configuration and functionality
+Step 4: Verified ACL configuration and functionality using "Show Running Config". Ping failed for networks with ACL configured.
   <br/>
 <img src="https://imgur.com/iAiSjyY.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
 <br />
 <br/>
 <img src="https://imgur.com/yVuwKaq.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br/>
+<br/>
+<img src="https://imgur.com/BuyvNqL.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<br/>
 </p>
 
 <!--
